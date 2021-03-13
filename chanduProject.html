@@ -1,0 +1,195 @@
+<html>
+
+<head>
+    <style>
+        #inputDiv {
+            width: 500px;
+            height: 400px;
+            border: 1px solid black;
+            margin-left: 350px;
+            margin-top: 100px;
+        }
+
+        #inputBtn {
+            height: 50px;
+            width: 200px;
+            color: blue;
+            margin-top: 150px; 
+            margin-left: 150px;
+            font-size: large;
+        }
+
+        #childContainer {
+            width: 500px;
+            height: auto;
+            border: 1px solid black;
+            margin-top: 120px;
+            margin-left: 350px;
+        }
+
+        #questionText {
+            /* margin: auto; */
+            margin-left: 42px;
+            margin-top: 70px;
+            padding-inline: 100px; 
+            padding-bottom: 10px;
+            padding-top: 10px;
+            text-align: 10;
+            text-align: center;
+            font-size: large;
+            border: 2px solid black;
+        }
+
+        #firstOptionText{
+            width: 175px;
+            height: 25px;
+
+        }
+
+        .secondOptionText {
+            height: 25px;
+            width: 175px;
+            display: list-item;
+            margin-top: 10px;
+        }
+
+        #deleteBtn {
+            margin-left: 180px;
+            margin-top: -24px;
+            width: 50px;
+        }
+
+        #cancelBtn {
+            margin-left: 750px;
+            margin-top: 7px;
+            font-size: large;
+            color: rgb(255 0 0);
+        }
+
+        #saveBtn {
+             font-size: large; 
+            color: rgb(0 128 0);
+            margin-left: 825px;
+    margin-top: -26px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="inputDiv">
+        <ol id="firstOrderedList"></ol>
+        <input type="button" id="inputBtn" value="ADD QUESTION" onclick="funNext()" />
+    </div>
+
+    <div id="container" style="display: none;">
+            <div id="childContainer">
+                <input type="text" name="questionText" id="questionText" placeholder="Enter Question" />
+                <ol id="containerList" type="A">
+                      <li>  
+                        <input type="text" name="optionsText" id="firstOptionText" placeholder="Enter OPTION" />
+                        <input type="button" id="addBtn" value="ADD" onclick="funAdd()" />
+                      </li>  
+                </ol>
+            </div>
+            <div style="width: 500px;">
+                <input type="button" id="cancelBtn" value="cancel" onclick="funCancel()" />
+                <input type="button" id="saveBtn" value="save" onclick="funAppend()" />
+            </div>
+           
+    </div>
+    <script>
+        //Function to display the inputField//
+        let funNext = () => {
+            document.querySelector("#inputDiv").style.display = "none";
+            document.querySelector("#container").style.display = "block"
+        }
+
+        //Function to Add the inputText and  Delete buttons//
+        let funAdd = () => {
+            const list = document.querySelector("#containerList");
+            const li = document.createElement("li");
+            const option = document.createElement("span");
+            // creating inputText//
+            const inputField = document.createElement("input");
+            inputField.setAttribute("type", "text");
+            inputField.setAttribute("class", "secondOptionText");
+            inputField.setAttribute("placeholder", "Enter Option");
+            inputField.setAttribute("name", "optionsText");
+            // creating deleteButton//
+            var deleteButton = document.createElement("input");
+            deleteButton.setAttribute("type", "button");
+            deleteButton.setAttribute("class", "secondOptionText");
+            deleteButton.setAttribute("id", "deleteBtn");
+            deleteButton.setAttribute("value", "Delete");
+            deleteButton.setAttribute("onclick", "funDelete()");
+            li.append(option);
+            li.append(inputField);
+            list.append(li);
+            li.append(deleteButton);
+             list.append(li);
+        }
+
+        //To delete the input text and deletebutton//
+
+        let funDelete = () => {
+            let z = document.getElementById("containerList");
+         let x =document.querySelectorAll(".secondOptionText");
+         var i;
+         for (i=0;i<x.length;i++){
+             x[i].onclick = function (){
+                 var y =this.parentElement;
+                z.removeChild(y);
+             }
+         }
+
+        }
+
+        //To cancel the entire question//
+        let funCancel = () => {
+            document.querySelector("#inputDiv").style.display = "block";
+            document.querySelector("#container").style.display = "none";
+
+            document.getElementById("questionText").value = "";
+            let li=document.getElementsByName("optionsText");
+           for(var i=0; i<li.length ; i++){
+            li[i].value="";
+           }
+
+        }
+
+        // To append the values to inputDIv/
+        let funAppend = () => {
+            document.querySelector("#inputDiv").style.display = "block";
+            document.querySelector("#container").style.display = "none";
+
+            let x =document.getElementById("firstOrderedList")
+           let y = document.createElement("li");
+           let z = document.createElement("span");
+
+           let inputText = document.getElementById("questionText").value;
+           y.append(z);
+           y.appendChild(document.createTextNode(inputText));
+           x.append(y);
+           let li=document.getElementsByName("optionsText");
+           var createdOl = document.createElement("ol");
+           createdOl.setAttribute("type","a");
+           //var yy = document.createElement("li");
+           var i;
+           for(var i=0; i<li.length ; i++){
+              var divElement =document.createElement("li");
+              divElement.append(document.createTextNode(li[i].value));
+              createdOl.append(divElement);
+             // xx.append(yy);
+              y.append(createdOl);
+              x.append(y);
+            li[i].value="";
+           }
+
+            document.getElementById("questionText").value = "";
+            document.getElementById("firstOptionText").value = "";
+
+        }
+    </script>
+</body>
+
+</html>
