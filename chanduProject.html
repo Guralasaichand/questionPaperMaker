@@ -162,32 +162,28 @@
             document.querySelector("#inputDiv").style.display = "block";
             document.querySelector("#container").style.display = "none";
 
-            let x =document.getElementById("firstOrderedList")
-           let y = document.createElement("li");
-           let z = document.createElement("span");
+            let firstOrderedList =document.getElementById("firstOrderedList")
+           let createdList = document.createElement("li");
+           let span = document.createElement("span");
 
            let inputText = document.getElementById("questionText").value;
-           y.append(z);
-           y.appendChild(document.createTextNode(inputText));
-           x.append(y);
+           createdList.append(span);
+           createdList.appendChild(document.createTextNode(inputText));
+           firstOrderedList.append(createdList);
+
            let li=document.getElementsByName("optionsText");
            var createdOl = document.createElement("ol");
            createdOl.setAttribute("type","a");
-           //var yy = document.createElement("li");
            var i;
            for(var i=0; i<li.length ; i++){
-              var divElement =document.createElement("li");
-              divElement.append(document.createTextNode(li[i].value));
-              createdOl.append(divElement);
-             // xx.append(yy);
-              y.append(createdOl);
-              x.append(y);
+              var liElement =document.createElement("li");
+              liElement.append(document.createTextNode(li[i].value));
+              createdOl.append(liElement);
+              createdList.append(createdOl);
+              firstOrderedList.append(createdList);
             li[i].value="";
            }
-
             document.getElementById("questionText").value = "";
-            document.getElementById("firstOptionText").value = "";
-
         }
     </script>
 </body>
